@@ -184,14 +184,15 @@ class SimulationWindow(QWidget):
 
 
 		#Viability control for resets
-
+		tmp = QLabel("Speed: "); 
+		self.controlLayout.addWidget(tmp,5,0,1,1); 
 		self.speedSlider = QSlider(Qt.Horizontal); 
 		self.speedSlider.setSliderPosition(3)
 		self.speedSlider.setTickPosition(QSlider.TicksBelow)
 		self.speedSlider.setTickInterval(1); 
 		self.speedSlider.setRange(0,5);
 		self.speedSlider.valueChanged.connect(lambda: self.changeInterval()); 
-		self.controlLayout.addWidget(self.speedSlider,5,0,1,4); 
+		self.controlLayout.addWidget(self.speedSlider,5,1,1,3); 
 
 		self.layout.addLayout(self.controlLayout,0,1,1,1); 
 
@@ -251,6 +252,8 @@ class SimulationWindow(QWidget):
 		for key in self.stateTrace.keys():
 			ax.plot(self.stateTrace[key],c=colors[key],linewidth = 3); 
 			sizeHintX = 5*len(self.stateTrace[key])/4
+		ax.axhline(0); 
+		ax.axhline(len(genes)); 
 
 		ax.set_xlim([0,int(sizeHintX)]); 
 		ax.set_ylim([-3,len(genes)+3]); 
